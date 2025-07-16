@@ -23,21 +23,25 @@ def string_to_list(s):
         return None
 
 def calculate_bill(
-    demand,
-    usage_kwh,
+    billing_df: pd.DataFrame,
+    usage_kwh: float,
     start_date,
     end_date,
-    rate_data
+    rate_data: dict,
+    contract_demand_kW: float = 0.0,
 ):
     """
     Calculate a detailed electric delivery bill based on as-used demand and energy usage.
 
     Parameters:
-    - demand (float): Billed demand
+    - billing_df (pd.DataFrame): DataFrame containing as-used demand data with
+      ``Date`` and demand columns.
     - usage_kwh (float): Total energy usage during billing period
     - start_date (str or datetime): Billing period start date
     - end_date (str or datetime): Billing period end date
-    - rate_data (dict): Rate structure extracted via extract_rate_data
+    - rate_data (dict): Rate structure extracted via ``extract_rate_data``
+    - contract_demand_kW (float, optional): Contract demand in kW used for the
+      contract demand charge calculation.
 
     Returns:
     - dict: Itemized breakdown of charges and total bill
