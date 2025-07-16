@@ -1,0 +1,52 @@
+,Id,RateAcuityRateId,RateAcuityChargeId,Description,RateAcuityChargeSeason,RateAcuityChargeStartDate,RateAcuityChargeEndDate,RateAcuityChargeStartTime,RateAcuityChargeEndTime,RateAcuityChargeTimeOfDay,Unit,ChargeTypeId,ChargeParameterTypeId,UsageType,Weighted,Prorated,Block,ServiceTypeId,RatchetChargeDetailsId,Complete,CreatedBy,CreatedDate,ModifiedBy,ModifiedDate
+0,1,1,2242,Monthly Adjustment Clause,,,,,,,kWh,0,1,,True,False,False,2,0,False,0,2024-06-13 00:00:00.000,448,2025-06-24 16:24:24.827
+1,4,1,2309,MAC Reconciliation,,,,,,,kWh,0,1,,False,False,False,2,0,False,0,2024-06-13 00:00:00.000,448,2025-06-24 16:24:37.700
+2,5,1,2310,MAC Uncollectible-bill Expense,,,,,,,kWh,0,1,,False,False,False,2,0,False,0,2024-06-13 00:00:00.000,448,2025-06-24 16:24:40.283
+3,6,1,2311,MAC Transition Adjustment,,,,,,,kWh,0,1,,False,False,False,2,0,False,0,2024-06-13 00:00:00.000,448,2025-06-24 16:24:40.510
+4,7,1,23198,Clean Energy Standard Supply Charge - Renewable Energy and Alternative Compliance,,,,,,,kWh,0,1,,False,False,False,1,0,False,0,2024-06-13 00:00:00.000,448,2025-06-24 16:24:41.183
+5,8,1,23199,Clean Energy Standard Supply Charge - Zero Emission,,,,,,,kWh,0,1,,False,False,False,1,0,False,0,2024-06-13 00:00:00.000,448,2025-06-24 16:24:41.407
+6,9,1,52700,Clean Energy Supply Charge - Environmental Component,,,,,,,kWh,0,1,,False,False,False,1,0,False,0,2024-06-13 00:00:00.000,448,2025-06-24 16:24:41.630
+7,10,1,2240,Energy Delivery Charge,,,,,,,kWh,0,1,,True,False,False,2,0,False,0,2024-06-13 00:00:00.000,448,2025-06-24 16:24:22.027
+8,11,1,2243,Revenue Decoupling Mechanism Adjustment,,,,,,,kWh,0,1,,True,False,False,2,0,False,0,2024-06-13 00:00:00.000,448,2025-06-24 16:24:25.330
+9,12,1,2244,Clean Energy Fund Surcharge,,,,,,,kWh,0,1,,True,False,False,2,0,False,0,2024-06-13 00:00:00.000,448,2025-06-24 16:24:25.550
+10,13,1,2246,Surcharge to Collect PSL 18-a Assessments,,,,,,,kWh,0,1,,False,False,False,2,0,False,0,2024-06-13 00:00:00.000,448,2025-06-24 16:24:25.667
+11,14,1,2249,Merchant Function Supply-related Charge,,,,,,,kWh,0,1,,True,False,False,1,0,False,0,2024-06-13 00:00:00.000,448,2025-06-24 16:24:31.720
+12,15,1,2250,Merchant Function Charge Credit and collection-related charge,,,,,,,kWh,0,1,,True,False,False,1,0,False,0,2024-06-13 00:00:00.000,448,2025-06-24 16:24:32.000
+13,16,1,2251,Merchant Function Charge Uncollectible-bill expense,,,,,,,kWh,0,1,,True,False,False,1,0,False,0,2024-06-13 00:00:00.000,448,2025-06-24 16:24:34.573
+14,17,1,2252,Merchant Function Charge - Transition Adjustment,,,,,,,kWh,0,1,,True,False,False,1,0,False,0,2024-06-13 00:00:00.000,448,2025-06-24 16:24:34.847
+15,18,1,5500,Energy Efficiency Tracker,,,,,,,kWh,0,1,,True,False,False,2,0,False,0,2024-06-13 00:00:00.000,448,2025-06-24 16:24:40.590
+16,19,1,19452,Delivery Revenue Surcharge,,,,,,,kWh,0,1,,True,False,False,2,0,False,0,2024-06-13 00:00:00.000,448,2025-06-24 16:24:40.920
+17,20,1,37461,Tax Sur-credit,,,,,,,kWh,0,1,,True,False,False,2,0,False,0,2024-06-13 00:00:00.000,448,2025-06-24 16:24:41.467
+18,21,1,60072,Ancillary Services Charges,,,,,,,kWh,0,0,,False,False,False,0,0,True,0,2024-06-13 00:00:00.000,448,2025-06-24 16:24:41.717
+19,22,1,60073,NYPA Transmission Adjustment Charge,,,,,,,kWh,0,0,,False,False,False,0,0,True,0,2024-06-13 00:00:00.000,448,2025-06-24 16:24:41.793
+20,23,1,60074,Transco Facilities Charges,,,,,,,kWh,0,0,,False,False,False,0,0,True,0,2024-06-13 00:00:00.000,448,2025-06-24 16:24:41.877
+21,24,1,61385,Integrated Energy Data Resource Surcharge,,,,,,,kWh,0,1,,True,False,False,2,0,False,0,2024-06-13 00:00:00.000,448,2025-06-24 16:24:41.937
+22,25,1,3806,Market Supply Charge - Capacity,,,,,,,kW,2,2,,True,True,False,1,0,False,0,2024-06-17 15:26:43.573,448,2025-06-24 16:24:20.947
+23,26,1,11444,Dynamic Load Surcharge,,,,,,,kW,0,2,,True,True,False,2,0,False,0,2024-06-17 15:28:01.913,448,2025-06-24 16:24:21.170
+24,27,1,12464,Tax Sur-credit,,,,,,,kW,0,2,,True,True,False,2,0,False,0,2024-06-17 15:28:41.353,448,2025-06-24 16:24:21.220
+25,28,1,23558,Electric Vehicle Make Ready Surcharge,,,,,,,kW,0,2,,True,False,False,2,0,False,0,2024-06-17 15:29:30.780,448,2025-06-24 16:24:21.300
+26,29,1,30,Demand Delivery Charge,June-Sept,1-Jun,30-Sep,0,2359,,kW,0,2,,True,True,False,2,0,False,0,2024-06-17 15:30:17.833,448,2025-06-24 16:24:42.330
+27,30,1,31,Demand Delivery Charge,Oct-May,1-Oct,31-May,0,2359,,kW,0,2,,True,True,False,2,0,False,0,2024-06-17 15:30:25.337,448,2025-06-24 16:24:42.557
+28,31,1,534,"Billing and Payment Processing Charge, per bill",,,,,,,,0,17,,True,False,False,2,0,False,0,2024-06-17 15:31:47.053,448,2025-06-24 16:24:43.603
+29,32,1,542,"Demand Delivery Charge, June - September, per month",,,,,,,,0,17,,True,True,False,2,0,False,0,2024-06-17 15:32:24.250,448,2025-06-24 16:24:43.847
+30,33,1,543,"Demand Delivery Charge, October - May, per month",,,,,,,,0,17,,True,True,False,2,0,False,0,2024-06-17 15:33:09.650,448,2025-06-24 16:24:44.107
+31,34,1,763,"Meter Ownership Charge, per month",,,,,,,,0,17,,True,True,False,2,0,False,0,2024-06-17 15:33:54.383,448,2025-06-24 16:24:44.243
+32,35,1,764,"Meter Service Provider Charge, per month",,,,,,,,0,17,,True,True,False,2,0,False,0,2024-06-17 15:34:06.253,448,2025-06-24 16:24:44.420
+33,36,1,765,"Meter Data Service Provider Charge, per month",,,,,,,,0,17,,True,True,False,2,0,False,0,2024-06-17 15:34:20.623,448,2025-06-24 16:24:44.653
+34,37,1,22147,Customer Charge,,,,,,,per month,0,17,,True,True,False,2,0,False,0,2024-06-17 15:34:48.453,448,2025-06-24 16:24:44.853
+35,38,1,66,kVar at the time of the kW Maximum demand less one third of such kW Maximum demand.,,,,,,,,0,12,,True,True,False,2,0,False,0,2024-06-17 15:36:02.303,448,2025-06-24 16:24:44.793
+36,39,1,12176,Demand Delivery Charge,June-Sept,1-Jun,30-Sep,0,2359,,kW,0,2,,True,True,False,2,0,False,0,2024-08-06 17:53:27.323,448,2025-06-24 16:24:21.833
+37,40,1,12177,Demand Delivery Charge,Oct-May,1-Oct,31-May,0,2359,,kW,0,2,,True,True,False,2,0,False,0,2024-08-06 17:53:40.320,448,2025-06-24 16:24:21.890
+38,44,1,4595,Factor of Adjustment for Losses,,,,,,,,0,0,,False,False,False,0,0,True,0,2024-08-06 17:54:50.113,448,2025-06-24 16:24:44.703
+39,45,1,26737,New York City: Delivery Rates and Charges,,,,,,,,0,17,,False,False,False,2,0,False,0,2024-08-07 15:39:15.853,448,2025-06-24 16:24:45.047
+40,46,1,26738,New York City: Commodity Rates and Charges,,,,,,,,0,17,,False,False,False,1,0,False,0,2024-08-07 15:39:23.750,448,2025-06-24 16:24:45.077
+41,47,1,176462,New York City: Additional percentage increase to Delivery Rates and Charges,,,,,,,,0,17,,False,False,False,2,0,False,0,2024-08-07 15:39:24.743,448,2025-06-24 16:24:45.243
+42,48,1,27828,Capacity Component - Market Value,,,,,,,kW,0,2,,False,False,False,2,0,False,448,2024-09-06 17:06:14.360,448,2025-06-24 16:24:21.413
+43,49,1,27840,Demand Reduction Value (DRV),,,,,,,kW,0,2,,False,False,False,2,0,False,448,2024-09-06 17:06:14.463,448,2025-06-24 16:24:21.493
+44,50,1,27841,Locational System Relief Value (LSRV),,,,,,,kW,0,2,,False,False,False,2,0,False,448,2024-09-06 17:06:14.550,448,2025-06-24 16:24:21.520
+45,51,1,27842,Community Credit,,,,,,,kW,0,2,,False,False,False,2,0,False,448,2024-09-06 17:06:14.580,448,2025-06-24 16:24:21.633
+46,52,1,28015,Capacity Component - Out of Market Value,,,,,,,kW,0,2,,False,False,False,2,0,False,448,2024-09-06 17:06:14.680,448,2025-06-24 16:24:21.717
+47,53,1,80616,Clean Energy Standard Delivery Surcharge - Costs associated with Backstop Charges,,,,,,,kWh,0,1,,True,False,False,2,0,False,448,2024-09-06 17:06:30.240,448,2025-06-24 16:24:42.017
+48,2606,1,28429,Arrears Management Program Recovery Surcharge per Monthly Max Demand,,,,,,,kW,0,2,,True,True,False,2,0,False,448,2024-10-21 14:49:15.000,448,2025-06-24 16:24:21.773
+49,2607,1,82184,Clean Energy Standard Delivery Surcharge - Costs Associated with the NYSERDA Residential and Retail,,,,,,,kWh,0,1,,True,False,False,2,0,False,448,2024-10-21 14:49:52.410,448,2025-06-24 16:24:42.073
+50,4114,1,85904,Costs Associated with the NYSERDA Integrated Energy Data Resource Phase 2 Program,,,,,,,kWh,0,1,,True,False,False,2,0,False,448,2025-01-23 13:29:29.607,448,2025-06-24 16:24:42.103
