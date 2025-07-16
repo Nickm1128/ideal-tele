@@ -1,0 +1,3 @@
+Example bill:
+DateFrom	DateTo	Demand	BillAmount	StatementDate	Usage
+4/16/2025	5/15/2025	382	17230.93	5/16/2025	128627
