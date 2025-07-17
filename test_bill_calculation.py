@@ -1,27 +1,18 @@
-import pandas as pd 
-import numpy as np 
-import pyodbc
-import ast
-from datetime import datetime
-import json
-import re
+"""
+Test script to verify bill calculation with sample data using charges 0 and 2.
+"""
 
+import pandas as pd
+import json
 import sys
 import os
-BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-sys.path.insert(0, BASE_DIR)
+import ast
+from datetime import datetime
 
-def string_to_list(s):
-    try:
-        result = ast.literal_eval(s)
-        if isinstance(result, list):
-            return result
-        else:
-            raise ValueError("The string does not represent a list.")
-    except Exception as e:
-        print(f"Error: {e}")
-        return None
+# Add the SC9 directory to path
+sys.path.append('SC9 I-III Calcs 7-16-2025')
 
+# Copy the necessary functions from bill_calc.py to avoid import issues
 def calculate_bill(
     billing_df: pd.DataFrame,
     usage_kwh: float,
@@ -31,23 +22,8 @@ def calculate_bill(
     contract_demand_kW: float = 0.0,
     charge_types: list = [0, 2],
 ):
-    """
-    Calculate a detailed electric delivery bill based on as-used demand and energy usage.
-
-    Parameters:
-    - billing_df (pd.DataFrame): DataFrame containing as-used demand data with
-      ``Date`` and demand columns.
-    - usage_kwh (float): Total energy usage during billing period
-    - start_date (str or datetime): Billing period start date
-    - end_date (str or datetime): Billing period end date
-    - rate_data (dict): Rate structure extracted via ``extract_rate_data``
-    - contract_demand_kW (float, optional): Contract demand in kW used for the
-      contract demand charge calculation.
-
-    Returns:
-    - dict: Itemized breakdown of charges and total bill
-    """
-
+    """Calculate a detailed electric delivery bill based on as-used demand and energy usage."""
+    
     # --- Date Handling ---
     start_date = pd.to_datetime(start_date)
     end_date = pd.to_datetime(end_date)
@@ -184,10 +160,10 @@ def extract_rate_data(rates, charges_df, start_date, end_date, city="New York Ci
         for i, row in df.iterrows():
             eff_date = max(row['EffectiveDate'], start_date)
             if i + 1 < len(df):
-                next_date = min(end_date, df.iloc[i + 1]['EffectiveDate'] )#- pd.Timedelta(days=1))
+                next_date = min(end_date, df.iloc[i + 1]['EffectiveDate'])
             else:
                 next_date = end_date
-            days = (next_date - eff_date).days #+ 1
+            days = (next_date - eff_date).days
             if days < 0:
                 continue
             weights.append(days)
@@ -229,7 +205,6 @@ def extract_rate_data(rates, charges_df, start_date, end_date, city="New York Ci
         elif 'Customer Charge' in desc:
             rate = extract('ServiceCharge_Table', 'Rate', desc, row)
 
-
         elif 'Processing' in desc:
             rate = extract('OtherCharges_Table', 'ChargeType', desc, row)
 
@@ -260,52 +235,102 @@ def extract_rate_data(rates, charges_df, start_date, end_date, city="New York Ci
 
     return rate_data_mapped
 
-def GetChargeHistory(conn1):
-    sql1 = """SELECT TOP (1000) [Id]
-        ,[RateAcuityRateId]
-        ,[EffectiveDate]
-        ,[RateHistory]
-        ,[CreatedBy]
-        ,[CreatedDate]
-        ,[ModifiedBy]
-        ,[ModifiedDate]
-    FROM [ExternalData].[dbo].[RateAcuityRateHistory]
-    WHERE RateAcuityRateId = 22
-    """
-    return string_to_list(pd.read_sql(sql1,conn1)['RateHistory'][0])[0]
-
-def GetChargeConfig(conn1, charge_types=[0, 2]):
-    # Convert charge_types list to comma-separated string for SQL IN clause
-    charge_types_str = ','.join(map(str, charge_types))
+def load_data():
+    """Load charge configuration and history data."""
+    charges_df = pd.read_csv('charge_config.csv')
     
-    sql1 = f"""
-    SELECT TOP (1000) [Id]
-        ,[RateAcuityRateId]
-        ,[RateAcuityChargeId]
-        ,[RateAcuityChargeDescription] AS 'Description'
-        ,[RateAcuityChargeSeason]
-        ,[RateAcuityChargeStartDate]
-        ,[RateAcuityChargeEndDate]
-        ,[RateAcuityChargeStartTime]
-        ,[RateAcuityChargeEndTime]
-        ,[RateAcuityChargeTimeOfDay]
-        ,[RateAcuityChargeDeterminant] AS 'Unit'
-        ,[ChargeTypeId]
-        ,[ChargeParameterTypeId]
-        ,[UsageType]
-        ,[WeightedAverage] AS 'Weighted'
-        ,[Prorated]
-        ,[Block]
-        ,[ServiceTypeId]
-        ,[RatchetChargeDetailsId]
-        ,[Complete]
-        ,[CreatedBy]
-        ,[CreatedDate]
-        ,[ModifiedBy]
-        ,[ModifiedDate]
-    FROM [ExternalData].[dbo].[ChargeConfiguration]
-    WHERE RateAcuityRateId = 22
-    AND RateAcuityChargeDescription NOT LIKE '%Average Supply Charge%'
-    AND [ChargeTypeId] IN ({charge_types_str})
-    """
-    return pd.read_sql(sql1,conn1)
+    with open('charge_history.json', 'r') as f:
+        rates = json.load(f)
+    
+    return charges_df, rates
+
+def create_sample_demand_data():
+    """Create sample demand data for the billing period."""
+    # Sample calculation period: 2025-04-16 to 2025-05-15
+    dates = pd.date_range('2025-04-16', '2025-05-15', freq='D')
+    
+    # Create realistic demand data (non-summer period)
+    # Assuming some variation around the 382 kW demand mentioned in sample
+    billing_df = pd.DataFrame({
+        'Date': dates,
+        'MidPeakDemand_kW': [350 + (i % 7) * 10 for i in range(len(dates))],
+        'PeakDemand_kW': [380 + (i % 5) * 8 for i in range(len(dates))]
+    })
+    
+    return billing_df
+
+def test_bill_calculation():
+    """Test the bill calculation with sample data."""
+    print("=== TESTING BILL CALCULATION ===")
+    print("Sample from calculation.txt:")
+    print("DateFrom: 2025-04-16, DateTo: 2025-05-15")
+    print("Demand: 382 kW, Usage: 128627 kWh")
+    print("Expected Bill Amount: $17,230.93")
+    print("=" * 50)
+    
+    # Load data
+    charges_df, rates = load_data()
+    billing_df = create_sample_demand_data()
+    
+    # Sample parameters from the calculation file
+    usage_kwh = 128627
+    start_date = '2025-04-16'
+    end_date = '2025-05-15'
+    contract_demand_kW = 382
+    charge_types = [0, 2]  # Transmission + Delivery
+    
+    print(f"\nUsing charge types: {charge_types}")
+    print(f"Billing period: {start_date} to {end_date}")
+    print(f"Usage: {usage_kwh:,} kWh")
+    print(f"Contract demand: {contract_demand_kW} kW")
+    
+    # Extract rate data
+    rate_data = extract_rate_data(
+        rates, charges_df, start_date, end_date, 
+        charge_types=charge_types
+    )
+    
+    print(f"\nExtracted rates:")
+    print(f"Contract demand rate: ${rate_data['contract_demand_rate']:.6f}/kW")
+    print(f"Non-summer as-used rate: ${rate_data['as_used_rate_nonsummer']:.6f}/kW")
+    print(f"Total surcharge rate: ${rate_data['surcharge_rate']:.6f}/kWh")
+    print(f"Customer charge: ${rate_data['customer_charge']:.2f}")
+    print(f"Processing charge: ${rate_data['processing_charge']:.2f}")
+    
+    # Calculate bill
+    bill = calculate_bill(
+        billing_df, usage_kwh, start_date, end_date, 
+        rate_data, contract_demand_kW, charge_types
+    )
+    
+    print(f"\n=== CALCULATED BILL BREAKDOWN ===")
+    print(f"Customer Charge: ${bill['customer_charge']['amount']:,.2f}")
+    print(f"Processing Charge: ${bill['processing_charge']['amount']:,.2f}")
+    print(f"Contract Demand Charge: ${bill['contract_demand_charge']['amount']:,.2f}")
+    print(f"  - {contract_demand_kW} kW × ${rate_data['contract_demand_rate']:.6f}/kW")
+    print(f"Summer Demand Charge: ${bill['demand_charge_summer']['amount']:,.2f}")
+    print(f"Non-Summer Demand Charge: ${bill['demand_charge_nonsummer']['amount']:,.2f}")
+    print(f"Energy Surcharge: ${bill['energy_surcharge']['amount']:,.2f}")
+    print(f"  - {usage_kwh:,} kWh × ${rate_data['surcharge_rate']:.6f}/kWh")
+    
+    print(f"\nTOTAL CALCULATED: ${bill['total']:,.2f}")
+    print(f"EXPECTED FROM SAMPLE: $17,230.93")
+    print(f"DIFFERENCE: ${bill['total'] - 17230.93:,.2f}")
+    
+    # Show energy charge breakdown
+    if rate_data['kwh_charge_breakdown']:
+        print(f"\n=== ENERGY CHARGE BREAKDOWN ===")
+        for desc, rate in rate_data['kwh_charge_breakdown'].items():
+            if rate != 0:
+                charge = rate * usage_kwh
+                print(f"{desc.replace('_', ' ').title()}: ${rate:.6f}/kWh = ${charge:.2f}")
+    
+    return bill, rate_data
+
+if __name__ == "__main__":
+    try:
+        bill, rate_data = test_bill_calculation()
+    except Exception as e:
+        print(f"Error: {e}")
+        import traceback
+        traceback.print_exc()
